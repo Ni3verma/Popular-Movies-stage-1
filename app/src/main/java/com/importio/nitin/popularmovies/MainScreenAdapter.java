@@ -12,8 +12,10 @@ import java.util.ArrayList;
 public class MainScreenAdapter extends RecyclerView.Adapter<MainScreenAdapter.MyViewHolder>{
 
     ArrayList<MovieDetails> movieList;
-    MainScreenAdapter(ArrayList<MovieDetails> list){
+    RecyclerViewClickListener mListener;
+    MainScreenAdapter(ArrayList<MovieDetails> list, RecyclerViewClickListener listener){
         this.movieList = list;
+        this.mListener=listener;
     }
 
 
@@ -22,7 +24,7 @@ public class MainScreenAdapter extends RecyclerView.Adapter<MainScreenAdapter.My
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_rv,parent,false);
 
-        return new MyViewHolder(view);
+        return new MyViewHolder(view,mListener);
     }
 
     @Override
@@ -37,12 +39,19 @@ public class MainScreenAdapter extends RecyclerView.Adapter<MainScreenAdapter.My
         return 60;
     }
 
-    class MyViewHolder extends RecyclerView.ViewHolder{
+    class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+        private RecyclerViewClickListener mListener;
         ImageView poster;
-        public MyViewHolder(View itemView) {
+        public MyViewHolder(View itemView,RecyclerViewClickListener listener) {
             super(itemView);
-
+            mListener=listener;
             poster=itemView.findViewById(R.id.movie_image);
+            poster.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            mListener.onClick(getAdapterPosition());
         }
     }
 }
