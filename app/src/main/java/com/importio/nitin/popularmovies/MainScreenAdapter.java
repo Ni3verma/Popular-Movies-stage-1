@@ -9,22 +9,23 @@ import android.widget.ImageView;
 
 import java.util.ArrayList;
 
-public class MainScreenAdapter extends RecyclerView.Adapter<MainScreenAdapter.MyViewHolder>{
+public class MainScreenAdapter extends RecyclerView.Adapter<MainScreenAdapter.MyViewHolder> {
 
     ArrayList<MovieDetails> movieList;
     RecyclerViewClickListener mListener;
-    MainScreenAdapter(ArrayList<MovieDetails> list, RecyclerViewClickListener listener){
+
+    MainScreenAdapter(ArrayList<MovieDetails> list, RecyclerViewClickListener listener) {
         this.movieList = list;
-        this.mListener=listener;
+        this.mListener = listener;
     }
 
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_rv,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_rv, parent, false);
 
-        return new MyViewHolder(view,mListener);
+        return new MyViewHolder(view, mListener);
     }
 
     @Override
@@ -39,13 +40,14 @@ public class MainScreenAdapter extends RecyclerView.Adapter<MainScreenAdapter.My
         return 60;
     }
 
-    class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private RecyclerViewClickListener mListener;
         ImageView poster;
-        public MyViewHolder(View itemView,RecyclerViewClickListener listener) {
+
+        public MyViewHolder(View itemView, RecyclerViewClickListener listener) {
             super(itemView);
-            mListener=listener;
-            poster=itemView.findViewById(R.id.movie_image);
+            mListener = listener;
+            poster = itemView.findViewById(R.id.movie_image);
             poster.setOnClickListener(this);
         }
 
