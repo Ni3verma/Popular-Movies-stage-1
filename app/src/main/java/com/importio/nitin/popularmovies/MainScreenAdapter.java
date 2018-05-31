@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 public class MainScreenAdapter extends RecyclerView.Adapter<MainScreenAdapter.MyViewHolder> {
@@ -30,14 +32,12 @@ public class MainScreenAdapter extends RecyclerView.Adapter<MainScreenAdapter.My
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        //MovieDetails movie=movieList.get(position);
-        holder.poster.setImageResource(R.drawable.ic_launcher_background);
+        Picasso.get().load(movieList.get(position).posterPath).into(holder.poster);
     }
 
     @Override
     public int getItemCount() {
-        //return movieList.size();
-        return 60;
+        return movieList.size();
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

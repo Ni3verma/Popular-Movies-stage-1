@@ -1,5 +1,6 @@
 package com.importio.nitin.popularmovies;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -9,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,14 +21,19 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String> {
     private static final int LOADER_ID = 411;
     private ArrayList<MovieDetails> movieList;
+    MainScreenAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        String key = getResources().getString(R.string.API_KEY);
-        NetworkUtils.setApiKey(key);
+        try {
+            String key = getResources().getString(R.string.API_KEY);
+            NetworkUtils.setApiKey(key);
+        } catch (Resources.NotFoundException ex) {
+            throw new RuntimeException("Please provide API key");
+        }
 
         RecyclerView recyclerView = findViewById(R.id.movieList_rv);
         RecyclerViewClickListener listener = new RecyclerViewClickListener() {
@@ -36,21 +43,15 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             }
         };
         movieList = new ArrayList<>();
-        MainScreenAdapter adapter = new MainScreenAdapter(movieList, listener);
+        adapter = new MainScreenAdapter(movieList, listener);
 
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         recyclerView.setAdapter(adapter);
 
-        startLoader();
-    }
-
-    private void startLoader() {
         Bundle queryBundle = new Bundle();
         queryBundle.putInt("sortBy", 0);
-        if (getSupportLoaderManager().getLoader(LOADER_ID) != null)
-            getSupportLoaderManager().initLoader(LOADER_ID, null, this);
-        else
-            getSupportLoaderManager().restartLoader(LOADER_ID, queryBundle, this);
+
+        getSupportLoaderManager().initLoader(LOADER_ID, queryBundle, this);
     }
 
     @NonNull
@@ -62,6 +63,10 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public void onLoadFinished(@NonNull Loader<String> loader, String data) {
+        if (data == null) {  //no data was received
+            Toast.makeText(MainActivity.this, "Check internet connection", Toast.LENGTH_SHORT).show();
+            return;
+        }
         try {
             JSONObject obj = new JSONObject(data);
             JSONArray results = obj.getJSONArray("results");
@@ -71,10 +76,11 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 movieList.add(getMovie(movie));
 
             }
+            Log.d("Nitin", "result:\n" + movieList.get(0).toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Log.d("Nitin", movieList.get(0).toString());
+        adapter.notifyDataSetChanged();
 
     }
 
