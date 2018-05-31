@@ -80,6 +80,9 @@ public class NetworkUtils {
             case 0:
                 sort = "popularity.desc";
                 break;
+            case 1:
+                sort = "vote_count.desc";
+                break;
         }
         return sort;
     }
