@@ -10,10 +10,15 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String> {
     private static final int LOADER_ID = 411;
+    private ArrayList<MovieDetails> movieList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -30,7 +35,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 Log.d("Nitin", position + " clicked ");
             }
         };
-        MainScreenAdapter adapter = new MainScreenAdapter(new ArrayList<MovieDetails>(), listener);
+        movieList = new ArrayList<>();
+        MainScreenAdapter adapter = new MainScreenAdapter(movieList, listener);
 
         recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
         recyclerView.setAdapter(adapter);
@@ -43,22 +49,50 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         queryBundle.putInt("sortBy", 0);
         if (getSupportLoaderManager().getLoader(LOADER_ID) != null)
             getSupportLoaderManager().initLoader(LOADER_ID, null, this);
-        getSupportLoaderManager().restartLoader(LOADER_ID, queryBundle, this);
+        else
+            getSupportLoaderManager().restartLoader(LOADER_ID, queryBundle, this);
     }
 
     @NonNull
     @Override
     public Loader<String> onCreateLoader(int id, @Nullable Bundle args) {
+        Log.d("Nitin", "loaderCreated");
         return new MovieLoader(this, args.getInt("sortBy"));
     }
 
     @Override
     public void onLoadFinished(@NonNull Loader<String> loader, String data) {
-        //parseJSON here
+        try {
+            JSONObject obj = new JSONObject(data);
+            JSONArray results = obj.getJSONArray("results");
+            int length = results.length();
+            for (int i = 0; i < length; i++) {
+                JSONObject movie = results.getJSONObject(i);
+                movieList.add(getMovie(movie));
+
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Log.d("Nitin", movieList.get(0).toString());
+
     }
 
     @Override
     public void onLoaderReset(@NonNull Loader<String> loader) {
 
+    }
+
+    MovieDetails getMovie(JSONObject movie) throws JSONException {
+
+        long id = movie.getLong("id");
+        double voteAvg = movie.getDouble("vote_average");
+        String name = movie.getString("title");
+        String posterPath = movie.getString("poster_path");
+        String overview = movie.getString("overview");
+        String date = movie.getString("release_date");
+
+        MovieDetails movieDetails = new MovieDetails(id, name, posterPath, date, overview, voteAvg);
+        return movieDetails;
     }
 }
