@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".DetailsActivity">
+
+        <ImageView
+            android:id="@+id/poster_movie"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_launcher_background"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/name_movie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="Deadpool 2"
+            android:textColor="@android:color/black"
+            android:textSize="30sp"
+            app:layout_constraintStart_toEndOf="@+id/poster_movie"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/rating_movie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="9.8"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/star_image_rating"
+            app:layout_constraintEnd_toStartOf="@+id/star_image_rating"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@+id/poster_movie"
+            app:layout_constraintStart_toStartOf="@+id/name_movie"
+            app:layout_constraintTop_toTopOf="@+id/star_image_rating" />
+
+        <TextView
+            android:id="@+id/release_date_movie_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:text="Release Date:"
+            app:layout_constraintStart_toEndOf="@+id/poster_movie"
+            app:layout_constraintTop_toBottomOf="@+id/rating_movie" />
+
+        <TextView
+            android:id="@+id/release_date_movie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="25 sept 2018"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@+id/poster_movie"
+            app:layout_constraintTop_toBottomOf="@+id/release_date_movie_label" />
+
+        <ImageView
+            android:id="@+id/star_image_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="@+id/name_movie"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/rating_movie"
+            app:layout_constraintTop_toBottomOf="@+id/name_movie"
+            app:srcCompat="@android:drawable/star_big_on" />
+
+        <android.support.v7.widget.CardView
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:layout_marginTop="32dp"
+            app:cardElevation="5dp"
+            app:contentPadding="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/poster_movie"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus corporis eius, eos expedita fuga in, incidunt itaque maiores, molestiae nihil porro possimus quas quibusdam quo soluta velit veniam veritatis! Magnam.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus corporis eius, eos expedita fuga in, incidunt itaque maiores, molestiae nihil porro possimus quas quibusdam quo soluta velit veniam veritatis! Magnam.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus corporis eius, eos expedita fuga in, incidunt itaque maiores, molestiae nihil porro possimus quas quibusdam quo soluta velit veniam veritatis! Magnam.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus corporis eius, eos expedita fuga in, incidunt itaque maiores, molestiae nihil porro possimus quas quibusdam quo soluta velit veniam veritatis! Magnam.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus corporis eius, eos expedita fuga in, incidunt itaque maiores, molestiae nihil porro possimus quas quibusdam quo soluta velit veniam veritatis! Magnam.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus corporis eius, eos expedita fuga in, incidunt itaque maiores, molestiae nihil porro possimus quas quibusdam quo soluta velit veniam veritatis! Magnam.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus corporis eius, eos expedita fuga in, incidunt itaque maiores, molestiae nihil porro possimus quas quibusdam quo soluta velit veniam veritatis! Magnam.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus corporis eius, eos expedita fuga in, incidunt itaque maiores, molestiae nihil porro possimus quas quibusdam quo soluta velit veniam veritatis! Magnam.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus corporis eius, eos expedita fuga in, incidunt itaque maiores, molestiae nihil porro possimus quas quibusdam quo soluta velit veniam veritatis! Magnam.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus corporis eius, eos expedita fuga in, incidunt itaque maiores, molestiae nihil porro possimus quas quibusdam quo soluta velit veniam veritatis! Magnam.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus corporis eius, eos expedita fuga in, incidunt itaque maiores, molestiae nihil porro possimus quas quibusdam quo soluta velit veniam veritatis! Magnam.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus corporis eius, eos expedita fuga in, incidunt itaque maiores, molestiae nihil porro possimus quas quibusdam quo soluta velit veniam veritatis! Magnam.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus corporis eius, eos expedita fuga in, incidunt itaque maiores, molestiae nihil porro possimus quas quibusdam quo soluta velit veniam veritatis! Magnam.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus corporis eius, eos expedita fuga in, incidunt itaque maiores, molestiae nihil porro possimus quas quibusdam quo soluta velit veniam veritatis! Magnam."
+                android:textAlignment="textStart" />
+
+
+        </android.support.v7.widget.CardView>
+
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>

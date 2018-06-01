@@ -1,6 +1,7 @@
 package com.importio.nitin.popularmovies;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -44,7 +45,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         RecyclerViewClickListener listener = new RecyclerViewClickListener() {
             @Override
             public void onClick(int position) {
-                Log.d("Nitin", position + " clicked ");
+                Intent intent=new Intent(MainActivity.this,DetailsActivity.class);
+                startActivity(intent);
             }
         };
         movieList = new ArrayList<>();
