@@ -6,10 +6,10 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.AsyncTaskLoader;
 
 public class MovieLoader extends AsyncTaskLoader<String> {
-    int mSortByCode;
-    String result;  //cache result into it
+    private int mSortByCode;
+    private String result;  //cache result into it
 
-    public MovieLoader(@NonNull Context context, int sortByCode) {
+    MovieLoader(@NonNull Context context, int sortByCode) {
         super(context);
         mSortByCode = sortByCode;
     }

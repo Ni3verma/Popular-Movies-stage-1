@@ -1,7 +1,7 @@
 package com.importio.nitin.popularmovies;
 
 public class MovieDetails {
-    long id;
+    private long id;
     String movieTitle;
     String posterPath;
     String releaseDate;
@@ -18,7 +18,7 @@ public class MovieDetails {
     }
 
     private String makeProperImagePath(String s) {
-        return "https://image.tmdb.org/t/p/w185/" + s;
+        return "https://image.tmdb.org/t/p/w342/" + s;
     }
 
     @Override

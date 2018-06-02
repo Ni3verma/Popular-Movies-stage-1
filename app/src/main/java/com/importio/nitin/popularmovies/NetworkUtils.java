@@ -35,7 +35,7 @@ public class NetworkUtils {
             urlConnection.connect();
 
             InputStream inputStream = urlConnection.getInputStream();
-            StringBuffer buffer = new StringBuffer();
+            StringBuilder buffer = new StringBuilder();
             if (inputStream == null)
                 return null;
 
@@ -43,7 +43,7 @@ public class NetworkUtils {
 
             String line;
             while ((line = reader.readLine()) != null) {
-                buffer.append(line + "\n");
+                buffer.append(line);
             }
             if (buffer.length() == 0) {
                 //stream is empty, no point in parsing

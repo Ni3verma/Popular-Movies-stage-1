@@ -13,8 +13,8 @@ import java.util.ArrayList;
 
 public class MainScreenAdapter extends RecyclerView.Adapter<MainScreenAdapter.MyViewHolder> {
 
-    ArrayList<MovieDetails> movieList;
-    RecyclerViewClickListener mListener;
+    private ArrayList<MovieDetails> movieList;
+    private RecyclerViewClickListener mListener;
 
     MainScreenAdapter(ArrayList<MovieDetails> list, RecyclerViewClickListener listener) {
         this.movieList = list;
@@ -44,7 +44,7 @@ public class MainScreenAdapter extends RecyclerView.Adapter<MainScreenAdapter.My
         private RecyclerViewClickListener mListener;
         ImageView poster;
 
-        public MyViewHolder(View itemView, RecyclerViewClickListener listener) {
+        private MyViewHolder(View itemView, RecyclerViewClickListener listener) {
             super(itemView);
             mListener = listener;
             poster = itemView.findViewById(R.id.movie_image);

@@ -26,8 +26,8 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String> {
     private static final int LOADER_ID = 411;
     private static int SORT_BY_CODE = 0;
-    private ArrayList<MovieDetails> movieList;
-    MainScreenAdapter adapter;
+    static ArrayList<MovieDetails> movieList;
+    private MainScreenAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             @Override
             public void onClick(int position) {
                 Intent intent=new Intent(MainActivity.this,DetailsActivity.class);
+                intent.putExtra("position", position);
                 startActivity(intent);
             }
         };
@@ -64,6 +65,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public Loader<String> onCreateLoader(int id, @Nullable Bundle args) {
         Log.d("Nitin", "loaderCreated");
+        assert args != null;
         return new MovieLoader(this, args.getInt("sortBy"));
     }
 
@@ -95,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     }
 
-    MovieDetails getMovie(JSONObject movie) throws JSONException {
+    private MovieDetails getMovie(JSONObject movie) throws JSONException {
 
         long id = movie.getLong("id");
         double voteAvg = movie.getDouble("vote_average");
@@ -104,8 +106,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         String overview = movie.getString("overview");
         String date = movie.getString("release_date");
 
-        MovieDetails movieDetails = new MovieDetails(id, name, posterPath, date, overview, voteAvg);
-        return movieDetails;
+        return new MovieDetails(id, name, posterPath, date, overview, voteAvg);
     }
 
     @Override

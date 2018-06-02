@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
@@ -20,16 +21,16 @@
             android:scaleType="fitXY"
             android:src="@drawable/ic_launcher_background"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/poster_image_view_cd" />
 
         <TextView
             android:id="@+id/name_movie"
-            android:layout_width="wrap_content"
+            android:layout_width="190dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="Deadpool 2"
             android:textColor="@android:color/black"
             android:textSize="30sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/poster_movie"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -38,7 +39,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="9.8"
             android:textColor="@color/colorPrimary"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="@+id/star_image_rating"
@@ -54,8 +54,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:text="@string/release_date_movie_label"
             android:layout_marginTop="16dp"
-            android:text="Release Date:"
             app:layout_constraintStart_toEndOf="@+id/poster_movie"
             app:layout_constraintTop_toBottomOf="@+id/rating_movie" />
 
@@ -64,7 +64,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="25 sept 2018"
             android:textColor="@android:color/black"
             android:textSize="20sp"
             app:layout_constraintStart_toEndOf="@+id/poster_movie"
@@ -79,7 +78,8 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/rating_movie"
             app:layout_constraintTop_toBottomOf="@+id/name_movie"
-            app:srcCompat="@android:drawable/star_big_on" />
+            app:srcCompat="@android:drawable/star_big_on"
+            android:contentDescription="@string/star_iv_cd" />
 
         <android.support.v7.widget.CardView
             android:layout_width="320dp"
@@ -95,11 +95,10 @@
 
 
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/synopsis_movie"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:text="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus corporis eius, eos expedita fuga in, incidunt itaque maiores, molestiae nihil porro possimus quas quibusdam quo soluta velit veniam veritatis! Magnam.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus corporis eius, eos expedita fuga in, incidunt itaque maiores, molestiae nihil porro possimus quas quibusdam quo soluta velit veniam veritatis! Magnam.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus corporis eius, eos expedita fuga in, incidunt itaque maiores, molestiae nihil porro possimus quas quibusdam quo soluta velit veniam veritatis! Magnam.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus corporis eius, eos expedita fuga in, incidunt itaque maiores, molestiae nihil porro possimus quas quibusdam quo soluta velit veniam veritatis! Magnam.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus corporis eius, eos expedita fuga in, incidunt itaque maiores, molestiae nihil porro possimus quas quibusdam quo soluta velit veniam veritatis! Magnam.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus corporis eius, eos expedita fuga in, incidunt itaque maiores, molestiae nihil porro possimus quas quibusdam quo soluta velit veniam veritatis! Magnam.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus corporis eius, eos expedita fuga in, incidunt itaque maiores, molestiae nihil porro possimus quas quibusdam quo soluta velit veniam veritatis! Magnam.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus corporis eius, eos expedita fuga in, incidunt itaque maiores, molestiae nihil porro possimus quas quibusdam quo soluta velit veniam veritatis! Magnam.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus corporis eius, eos expedita fuga in, incidunt itaque maiores, molestiae nihil porro possimus quas quibusdam quo soluta velit veniam veritatis! Magnam.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus corporis eius, eos expedita fuga in, incidunt itaque maiores, molestiae nihil porro possimus quas quibusdam quo soluta velit veniam veritatis! Magnam.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus corporis eius, eos expedita fuga in, incidunt itaque maiores, molestiae nihil porro possimus quas quibusdam quo soluta velit veniam veritatis! Magnam.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus corporis eius, eos expedita fuga in, incidunt itaque maiores, molestiae nihil porro possimus quas quibusdam quo soluta velit veniam veritatis! Magnam.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus corporis eius, eos expedita fuga in, incidunt itaque maiores, molestiae nihil porro possimus quas quibusdam quo soluta velit veniam veritatis! Magnam.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus corporis eius, eos expedita fuga in, incidunt itaque maiores, molestiae nihil porro possimus quas quibusdam quo soluta velit veniam veritatis! Magnam."
                 android:textAlignment="textStart" />
 
 
