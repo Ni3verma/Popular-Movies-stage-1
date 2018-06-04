@@ -11,11 +11,10 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class NetworkUtils {
-
-    private static final String BASE_URL = "https://api.themoviedb.org/3/discover/movie?";
-    private static final String API_PARAM = "api_key";
-    private static final String SORT_PARAM = "sort_by";
     private static String API_KEY = null;
+    private static final String SCHEME = "https";
+    private static final String AUTHORITY = "api.themoviedb.org";
+    private static final String API_PARAM = "api_key";
 
     public static String getJSONResponse(int sortByCode) {
         HttpURLConnection urlConnection = null;
@@ -23,11 +22,15 @@ public class NetworkUtils {
         String response;
 
         try {
-            Uri uri = Uri.parse(BASE_URL).buildUpon()
-                    .appendQueryParameter(API_PARAM, API_KEY)
-                    .appendQueryParameter(SORT_PARAM, getSortBy(sortByCode))
-                    .build();
-            URL requestURL = new URL(uri.toString());
+            Uri.Builder builder = new Uri.Builder();
+            builder.scheme(SCHEME)
+                    .authority(AUTHORITY)
+                    .appendPath("3")
+                    .appendPath("movie")
+                    .appendPath(getSortBy(sortByCode))
+                    .appendQueryParameter(API_PARAM, API_KEY);
+
+            URL requestURL = new URL(builder.build().toString());
             Log.d("Nitin", "Request URL = " + requestURL.toString());
 
             urlConnection = (HttpURLConnection) requestURL.openConnection();
@@ -78,10 +81,10 @@ public class NetworkUtils {
         String sort = null;
         switch (code) {
             case 0:
-                sort = "popularity.desc";
+                sort = "popular";
                 break;
             case 1:
-                sort = "vote_count.desc";
+                sort = "top_rated";
                 break;
         }
         return sort;

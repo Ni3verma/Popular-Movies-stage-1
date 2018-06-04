@@ -18,7 +18,7 @@ public class MovieDetails {
     }
 
     private String makeProperImagePath(String s) {
-        return "https://image.tmdb.org/t/p/w342/" + s;
+        return "https://image.tmdb.org/t/p/w342" + s;
     }
 
     @Override
