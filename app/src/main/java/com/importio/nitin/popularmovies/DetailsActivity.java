@@ -9,9 +9,15 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Locale;
 
 public class DetailsActivity extends AppCompatActivity {
+    private Review[] reviews;
+    private String[] videos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +52,25 @@ public class DetailsActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
+        protected void onPostExecute(String data) {
+            super.onPostExecute(data);
+
+            try {
+                JSONObject obj = new JSONObject(data);
+                JSONArray results = obj.getJSONArray("results");
+                int length = results.length();
+                reviews = new Review[length];
+                for (int i = 0; i < length; i++) {
+                    JSONObject review = results.getJSONObject(i);
+                    String author = review.getString("author");
+                    String comment = review.getString("content");
+
+                    Review c = new Review(author, comment);
+                    reviews[i] = c;
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -59,8 +82,21 @@ public class DetailsActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
+        protected void onPostExecute(String data) {
+            super.onPostExecute(data);
+
+            try {
+                JSONObject obj = new JSONObject(data);
+                JSONArray results = obj.getJSONArray("results");
+                int length = results.length();
+                videos = new String[length];
+                for (int i = 0; i < length; i++) {
+                    JSONObject video = results.getJSONObject(i);
+                    videos[i] = video.getString("key");
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

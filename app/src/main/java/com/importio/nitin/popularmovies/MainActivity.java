@@ -84,7 +84,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 movieList.add(getMovie(movie));
 
             }
-            Log.d("Nitin", "result:\n" + movieList.get(0).toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
