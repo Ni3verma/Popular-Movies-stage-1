@@ -16,7 +16,7 @@ public class NetworkUtils {
     private static final String SCHEME = "https";
     private static final String AUTHORITY = "api.themoviedb.org";
     private static final String API_PARAM = "api_key";
-    //https://www.youtube.com/watch?v=gFaYbSGjED0
+
     //http://api.themoviedb.org/3/movie/284053/videos?api_key=3c28c1e1f62f8ba69169b2041267fee9
 
     public static String getMovies(int sortByCode) {

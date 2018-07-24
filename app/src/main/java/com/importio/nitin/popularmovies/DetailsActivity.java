@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -17,7 +18,9 @@ import java.util.Locale;
 
 public class DetailsActivity extends AppCompatActivity {
     private Review[] reviews;
-    private String[] videos;
+    private Video[] videos;
+    private ReviewAdapter reviewAdapter;
+    private VideoAdapter videoAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,12 +36,20 @@ public class DetailsActivity extends AppCompatActivity {
         TextView rating = findViewById(R.id.rating_movie);
         TextView date = findViewById(R.id.release_date_movie);
         TextView synopsis = findViewById(R.id.synopsis_movie);
+        ListView reviewListView = findViewById(R.id.review_lv);
+        ListView videoListView = findViewById(R.id.video_lv);
 
         name.setText(selectedMovie.movieTitle);
         rating.setText(String.format(Locale.US, "%.1f", selectedMovie.voteAverage));
         date.setText(selectedMovie.releaseDate);
         synopsis.setText(selectedMovie.synopsis);
         Picasso.get().load(selectedMovie.posterPath).into(poster);
+
+        reviewAdapter = new ReviewAdapter(this, reviews);
+        reviewListView.setAdapter(reviewAdapter);
+
+        videoAdapter = new VideoAdapter(this, videos);
+        videoListView.setAdapter(videoAdapter);
 
         new getMovieReviewsTask().execute(selectedMovie.getId());
         new getMovieTrailerTask().execute(selectedMovie.getId());
@@ -71,6 +82,8 @@ public class DetailsActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+
+            reviewAdapter.notifyDataSetChanged();
         }
     }
 
@@ -89,14 +102,19 @@ public class DetailsActivity extends AppCompatActivity {
                 JSONObject obj = new JSONObject(data);
                 JSONArray results = obj.getJSONArray("results");
                 int length = results.length();
-                videos = new String[length];
+                videos = new Video[length];
                 for (int i = 0; i < length; i++) {
                     JSONObject video = results.getJSONObject(i);
-                    videos[i] = video.getString("key");
+
+                    videos[i] = new Video(video.getString("name"),
+                            video.getString("site"),
+                            video.getString("key"));
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+
+            videoAdapter.notifyDataSetChanged();
         }
     }
 }

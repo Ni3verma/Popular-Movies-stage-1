@@ -107,7 +107,7 @@
         </android.support.v7.widget.CardView>
 
         <TextView
-            android:id="@+id/trailer_label"
+            android:id="@+id/video_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -115,6 +115,14 @@
             android:text="Videos"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/synopsis_movie_card" />
+
+        <ListView
+            android:id="@+id/video_lv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/video_label" />
 
         <TextView
             android:id="@+id/review_label"
@@ -124,7 +132,7 @@
             android:layout_marginTop="8dp"
             android:text="Reviews"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/trailer_label" />
+            app:layout_constraintTop_toBottomOf="@+id/video_lv" />
 
         <ListView
             android:id="@+id/review_lv"
