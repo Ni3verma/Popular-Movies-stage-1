@@ -1,6 +1,8 @@
 package com.importio.nitin.popularmovies;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -9,9 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-
-import java.net.MalformedURLException;
-import java.net.URL;
 
 public class VideoAdapter extends ArrayAdapter<Video> {
     private Context context;
@@ -40,20 +39,14 @@ public class VideoAdapter extends ArrayAdapter<Video> {
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //https://www.youtube.com/watch?v=gFaYbSGjED0
                 String key = v.getKey();
 
-                Uri.Builder builder = new Uri.Builder();
-                builder.scheme("https")
-                        .authority("www.youtube.com")
-                        .appendPath("watch")
-                        .appendQueryParameter("v", key);
-
-                URL url = null;
+                Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:" + key));
+                Intent webIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/watch?v=" + key));
                 try {
-                    url = new URL(builder.build().toString());
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
+                    context.startActivity(appIntent);
+                } catch (ActivityNotFoundException e) {
+                    context.startActivity(webIntent);
                 }
             }
         });
