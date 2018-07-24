@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 public class NetworkUtils {
@@ -15,25 +16,37 @@ public class NetworkUtils {
     private static final String SCHEME = "https";
     private static final String AUTHORITY = "api.themoviedb.org";
     private static final String API_PARAM = "api_key";
+    //https://www.youtube.com/watch?v=gFaYbSGjED0
+    //http://api.themoviedb.org/3/movie/284053/videos?api_key=3c28c1e1f62f8ba69169b2041267fee9
 
-    public static String getJSONResponse(int sortByCode) {
+    public static String getMovies(int sortByCode) {
+
+        Uri.Builder builder = new Uri.Builder();
+        builder.scheme(SCHEME)
+                .authority(AUTHORITY)
+                .appendPath("3")
+                .appendPath("movie")
+                .appendPath(getSortBy(sortByCode))
+                .appendQueryParameter(API_PARAM, API_KEY);
+
+        URL requestURL = null;
+        try {
+            requestURL = new URL(builder.build().toString());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        Log.d("Nitin", "Request URL = " + requestURL.toString());
+
+        return getJSONResponse(requestURL);
+
+    }
+
+    private static String getJSONResponse(URL url) {
         HttpURLConnection urlConnection = null;
         BufferedReader reader = null;
         String response;
-
         try {
-            Uri.Builder builder = new Uri.Builder();
-            builder.scheme(SCHEME)
-                    .authority(AUTHORITY)
-                    .appendPath("3")
-                    .appendPath("movie")
-                    .appendPath(getSortBy(sortByCode))
-                    .appendQueryParameter(API_PARAM, API_KEY);
-
-            URL requestURL = new URL(builder.build().toString());
-            Log.d("Nitin", "Request URL = " + requestURL.toString());
-
-            urlConnection = (HttpURLConnection) requestURL.openConnection();
+            urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("GET");
             urlConnection.connect();
 
@@ -89,4 +102,49 @@ public class NetworkUtils {
         }
         return sort;
     }
+
+    public static String getVideosOfMovie(int id) {
+
+        Uri.Builder builder = new Uri.Builder();
+        builder.scheme(SCHEME)
+                .authority(AUTHORITY)
+                .appendPath("3")
+                .appendPath("movie")
+                .appendPath("" + id)
+                .appendPath("videos")
+                .appendQueryParameter(API_PARAM, API_KEY);
+
+        URL requestURL = null;
+        try {
+            requestURL = new URL(builder.build().toString());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        Log.d("Nitin", "videos Request URL = " + requestURL.toString());
+
+        return getJSONResponse(requestURL);
+    }
+
+    public static String getReviewsOfMovie(int id) {
+
+        Uri.Builder builder = new Uri.Builder();
+        builder.scheme(SCHEME)
+                .authority(AUTHORITY)
+                .appendPath("3")
+                .appendPath("movie")
+                .appendPath("" + id)
+                .appendPath("reviews")
+                .appendQueryParameter(API_PARAM, API_KEY);
+
+        URL requestURL = null;
+        try {
+            requestURL = new URL(builder.build().toString());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        Log.d("Nitin", "reviews Request URL = " + requestURL.toString());
+
+        return getJSONResponse(requestURL);
+    }
+
 }
