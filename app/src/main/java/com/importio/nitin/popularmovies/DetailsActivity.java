@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -53,6 +54,10 @@ public class DetailsActivity extends AppCompatActivity {
 
         new getMovieReviewsTask().execute(selectedMovie.getId());
         new getMovieTrailerTask().execute(selectedMovie.getId());
+    }
+
+    public void favClicked(View view) {
+
     }
 
     class getMovieReviewsTask extends AsyncTask<Long, Void, String> {

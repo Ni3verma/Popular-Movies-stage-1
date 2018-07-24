@@ -16,14 +16,27 @@
         <ImageView
             android:id="@+id/poster_movie"
             android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_height="120dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:scaleType="fitXY"
             android:src="@drawable/ic_launcher_background"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:contentDescription="@string/poster_image_view_cd" />
+            android:contentDescription="@string/poster_image_view_cd"
+            android:onClick="favClicked" />
+        <!--TODO:add heart icon instead of star-->
+        <ImageButton
+            android:id="@+id/fav_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:background="@android:color/transparent"
+            android:src="@android:drawable/btn_star_big_off"
+            app:layout_constraintEnd_toEndOf="@+id/poster_movie"
+            app:layout_constraintStart_toStartOf="@+id/poster_movie"
+            app:layout_constraintTop_toBottomOf="@+id/poster_movie" />
 
         <TextView
             android:id="@+id/name_movie"
@@ -31,6 +44,7 @@
             android:layout_height="wrap_content"
             android:textColor="@android:color/black"
             android:textSize="25sp"
+            tools:text="Avengers Infinity Wars"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/poster_movie"
             app:layout_constraintTop_toTopOf="parent" />
@@ -42,6 +56,7 @@
             android:layout_marginStart="8dp"
             android:textColor="@color/colorPrimary"
             android:textSize="20sp"
+            tools:text="9.8"
             app:layout_constraintBottom_toBottomOf="@+id/star_image_rating"
             app:layout_constraintEnd_toStartOf="@+id/star_image_rating"
             app:layout_constraintHorizontal_bias="0.5"
@@ -66,6 +81,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:textColor="@android:color/black"
+            tools:text="28/03/2018"
             android:textSize="20sp"
             app:layout_constraintStart_toEndOf="@+id/poster_movie"
             app:layout_constraintTop_toBottomOf="@+id/release_date_movie_label" />
@@ -86,14 +102,12 @@
             android:id="@+id/synopsis_movie_card"
             android:layout_width="320dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp"
             android:layout_marginTop="32dp"
             app:cardElevation="5dp"
             app:contentPadding="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/poster_movie"
-            app:layout_constraintBottom_toBottomOf="parent">
+            app:layout_constraintTop_toBottomOf="@id/fav_button">
 
 
             <TextView
@@ -101,7 +115,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:textAlignment="textStart" />
+                android:textAlignment="textStart"
+                tools:text="Synopsis of movie here" />
 
 
         </android.support.v7.widget.CardView>
@@ -142,6 +157,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/review_label"
+            android:layout_marginBottom="8dp"
             tools:listitem="@layout/row_list_review" />
 
 
