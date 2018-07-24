@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -20,6 +21,8 @@ import java.util.Locale;
 public class DetailsActivity extends AppCompatActivity {
     private Review[] reviews;
     private Video[] videos;
+    ListView reviewListView;
+    ListView videoListView;
     private ReviewAdapter reviewAdapter;
     private VideoAdapter videoAdapter;
 
@@ -37,8 +40,8 @@ public class DetailsActivity extends AppCompatActivity {
         TextView rating = findViewById(R.id.rating_movie);
         TextView date = findViewById(R.id.release_date_movie);
         TextView synopsis = findViewById(R.id.synopsis_movie);
-        ListView reviewListView = findViewById(R.id.review_lv);
-        ListView videoListView = findViewById(R.id.video_lv);
+        reviewListView = findViewById(R.id.review_lv);
+        videoListView = findViewById(R.id.video_lv);
 
         name.setText(selectedMovie.movieTitle);
         rating.setText(String.format(Locale.US, "%.1f", selectedMovie.voteAverage));
@@ -46,11 +49,22 @@ public class DetailsActivity extends AppCompatActivity {
         synopsis.setText(selectedMovie.synopsis);
         Picasso.get().load(selectedMovie.posterPath).into(poster);
 
-        reviewAdapter = new ReviewAdapter(this, reviews);
-        reviewListView.setAdapter(reviewAdapter);
+        reviewListView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                v.getParent().requestDisallowInterceptTouchEvent(true);
+                return false;
+            }
+        });
 
-        videoAdapter = new VideoAdapter(this, videos);
-        videoListView.setAdapter(videoAdapter);
+        videoListView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                v.getParent().requestDisallowInterceptTouchEvent(true);
+                return false;
+            }
+        });
+
 
         new getMovieReviewsTask().execute(selectedMovie.getId());
         new getMovieTrailerTask().execute(selectedMovie.getId());
@@ -80,7 +94,6 @@ public class DetailsActivity extends AppCompatActivity {
                     JSONObject review = results.getJSONObject(i);
                     String author = review.getString("author");
                     String comment = review.getString("content");
-
                     Review c = new Review(author, comment);
                     reviews[i] = c;
                 }
@@ -88,7 +101,8 @@ public class DetailsActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            reviewAdapter.notifyDataSetChanged();
+            reviewAdapter = new ReviewAdapter(getApplicationContext(), reviews);
+            reviewListView.setAdapter(reviewAdapter);
         }
     }
 
@@ -96,7 +110,7 @@ public class DetailsActivity extends AppCompatActivity {
 
         @Override
         protected String doInBackground(Long... param) {
-            return NetworkUtils.getReviewsOfMovie(param[0]);
+            return NetworkUtils.getVideosOfMovie(param[0]);
         }
 
         @Override
@@ -119,7 +133,8 @@ public class DetailsActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            videoAdapter.notifyDataSetChanged();
+            videoAdapter = new VideoAdapter(getApplicationContext(), videos);
+            videoListView.setAdapter(videoAdapter);
         }
     }
 }
