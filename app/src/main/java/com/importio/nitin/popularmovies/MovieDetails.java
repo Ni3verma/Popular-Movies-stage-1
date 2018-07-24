@@ -6,6 +6,11 @@ public class MovieDetails {
     String posterPath;
     String releaseDate;
     String synopsis;
+
+    public long getId() {
+        return id;
+    }
+
     double voteAverage;
 
     MovieDetails(long id, String title, String imagePath, String date, String synp, double voteAvg) {

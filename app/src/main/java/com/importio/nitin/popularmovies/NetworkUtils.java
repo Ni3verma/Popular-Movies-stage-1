@@ -103,7 +103,7 @@ public class NetworkUtils {
         return sort;
     }
 
-    public static String getVideosOfMovie(int id) {
+    public static String getVideosOfMovie(long id) {
 
         Uri.Builder builder = new Uri.Builder();
         builder.scheme(SCHEME)
@@ -125,7 +125,7 @@ public class NetworkUtils {
         return getJSONResponse(requestURL);
     }
 
-    public static String getReviewsOfMovie(int id) {
+    public static String getReviewsOfMovie(long id) {
 
         Uri.Builder builder = new Uri.Builder();
         builder.scheme(SCHEME)

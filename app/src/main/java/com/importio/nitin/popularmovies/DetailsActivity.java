@@ -1,6 +1,7 @@
 package com.importio.nitin.popularmovies;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
@@ -32,5 +33,34 @@ public class DetailsActivity extends AppCompatActivity {
         date.setText(selectedMovie.releaseDate);
         synopsis.setText(selectedMovie.synopsis);
         Picasso.get().load(selectedMovie.posterPath).into(poster);
+
+        new getMovieReviewsTask().execute(selectedMovie.getId());
+        new getMovieTrailerTask().execute(selectedMovie.getId());
+    }
+
+    class getMovieReviewsTask extends AsyncTask<Long, Void, String> {
+
+        @Override
+        protected String doInBackground(Long... param) {
+            return NetworkUtils.getReviewsOfMovie(param[0]);
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+        }
+    }
+
+    class getMovieTrailerTask extends AsyncTask<Long, Void, String> {
+
+        @Override
+        protected String doInBackground(Long... param) {
+            return NetworkUtils.getReviewsOfMovie(param[0]);
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+        }
     }
 }
