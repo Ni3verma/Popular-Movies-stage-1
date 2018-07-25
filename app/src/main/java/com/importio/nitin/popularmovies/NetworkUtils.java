@@ -145,4 +145,24 @@ public class NetworkUtils {
         return getJSONResponse(requestURL);
     }
 
+    public static String getMovieDetailsById(long id) {
+        Uri.Builder builder = new Uri.Builder();
+        builder.scheme(SCHEME)
+                .authority(AUTHORITY)
+                .appendPath("3")
+                .appendPath("movie")
+                .appendPath("" + id)
+                .appendQueryParameter(API_PARAM, API_KEY);
+
+        URL requestURL = null;
+        try {
+            requestURL = new URL(builder.build().toString());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        Log.d("Nitin", "getMovieDetailsById Request URL = " + requestURL.toString());
+
+        return getJSONResponse(requestURL);
+    }
+
 }

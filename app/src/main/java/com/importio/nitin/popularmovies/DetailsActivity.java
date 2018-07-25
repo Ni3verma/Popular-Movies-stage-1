@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
@@ -30,8 +29,6 @@ public class DetailsActivity extends AppCompatActivity {
     private Video[] videos;
     ListView reviewListView;
     ListView videoListView;
-    private ReviewAdapter reviewAdapter;
-    private VideoAdapter videoAdapter;
     MovieDetails selectedMovie;
     private AppDatabase mDatabase;
 
@@ -100,7 +97,6 @@ public class DetailsActivity extends AppCompatActivity {
             public void run() {
                 FavouriteEntry fav = mDatabase.FavDao().getFavById(selectedMovie.getId());
                 if (fav == null) {
-                    Log.d(TAG, "movie is not fav,so making it");
                     mDatabase.FavDao().insertFavMovie(new FavouriteEntry(selectedMovie.getId(), true));
                     runOnUiThread(new Runnable() {
                         @Override
@@ -112,7 +108,6 @@ public class DetailsActivity extends AppCompatActivity {
                     });
 
                 } else {
-                    Log.d(TAG, "movie is fav,so deleting it");
                     mDatabase.FavDao().deleteFavById(selectedMovie.getId());
 
                     runOnUiThread(new Runnable() {
@@ -124,8 +119,6 @@ public class DetailsActivity extends AppCompatActivity {
                         }
                     });
                 }
-
-
             }
         });
     }
@@ -157,7 +150,7 @@ public class DetailsActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            reviewAdapter = new ReviewAdapter(getApplicationContext(), reviews);
+            ReviewAdapter reviewAdapter = new ReviewAdapter(getApplicationContext(), reviews);
             reviewListView.setAdapter(reviewAdapter);
         }
     }
@@ -189,7 +182,7 @@ public class DetailsActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            videoAdapter = new VideoAdapter(getApplicationContext(), videos);
+            VideoAdapter videoAdapter = new VideoAdapter(getApplicationContext(), videos);
             videoListView.setAdapter(videoAdapter);
         }
     }

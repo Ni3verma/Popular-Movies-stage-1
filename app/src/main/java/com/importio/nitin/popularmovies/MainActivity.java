@@ -3,6 +3,7 @@ package com.importio.nitin.popularmovies;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -17,11 +18,15 @@ import android.view.MenuItem;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.importio.nitin.popularmovies.Database.AppDatabase;
+import com.importio.nitin.popularmovies.Database.FavouriteEntry;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String> {
     private static final int LOADER_ID = 411;
@@ -142,9 +147,51 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 Bundle queryBundle = new Bundle();
                 queryBundle.putInt("sortBy", SORT_BY_CODE);
                 movieList.clear();
-                getSupportLoaderManager().restartLoader(LOADER_ID, queryBundle, MainActivity.this);
+                if (SORT_BY_CODE == 2) {
+                    displayFavMovies();
+                } else
+                    getSupportLoaderManager().restartLoader(LOADER_ID, queryBundle, MainActivity.this);
                 dialog.dismiss();
             }
         });
+    }
+
+    void displayFavMovies() {
+        //so that after coming back to main activity from details of a fav movie
+        //popular movies are not shown by loader
+        getSupportLoaderManager().destroyLoader(LOADER_ID);
+
+        AppExecutors.getInstance().getDiskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                AppDatabase mDatabase = AppDatabase.getsInstance(MainActivity.this);
+                List<FavouriteEntry> favMovies = mDatabase.FavDao().getAllFavMovies();
+                for (FavouriteEntry fav : favMovies) {
+                    long id = fav.getMovieId();
+                    new getFavMovieTask().execute(id);
+                }
+            }
+        });
+    }
+
+    class getFavMovieTask extends AsyncTask<Long, Void, String> {
+
+        @Override
+        protected String doInBackground(Long... params) {
+            return NetworkUtils.getMovieDetailsById(params[0]);
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            try {
+                JSONObject obj = new JSONObject(s);
+                movieList.add(getMovie(obj));
+                adapter.notifyDataSetChanged();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
     }
 }
