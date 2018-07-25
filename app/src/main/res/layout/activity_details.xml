@@ -16,15 +16,14 @@
         <ImageView
             android:id="@+id/poster_movie"
             android:layout_width="150dp"
-            android:layout_height="120dp"
+            android:layout_height="140dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:scaleType="fitXY"
             android:src="@drawable/ic_launcher_background"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:contentDescription="@string/poster_image_view_cd"
-            android:onClick="favClicked" />
+            android:contentDescription="@string/poster_image_view_cd" />
         <!--TODO:add heart icon instead of star-->
         <ImageButton
             android:id="@+id/fav_button"
@@ -33,9 +32,10 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:background="@android:color/transparent"
-            android:src="@android:drawable/btn_star_big_off"
+            android:onClick="favClicked"
             app:layout_constraintEnd_toEndOf="@+id/poster_movie"
             app:layout_constraintStart_toStartOf="@+id/poster_movie"
+            android:src="@drawable/ic_favorite_border"
             app:layout_constraintTop_toBottomOf="@+id/poster_movie" />
 
         <TextView

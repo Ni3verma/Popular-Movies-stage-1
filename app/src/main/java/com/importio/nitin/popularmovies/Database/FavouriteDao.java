@@ -19,6 +19,9 @@ public interface FavouriteDao {
     @Delete
     void removeFavMovie(FavouriteEntry movie);
 
+    @Query("delete from favourite where movieId=:id")
+    void deleteFavById(long id);
+
     @Query("select * from favourite where movieId=:id")
-    FavouriteEntry getFavById(int id);
+    FavouriteEntry getFavById(long id);
 }
