@@ -1,8 +1,11 @@
 package com.importio.nitin.popularmovies;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -10,10 +13,11 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.importio.nitin.popularmovies.Database.AppDatabase;
 import com.importio.nitin.popularmovies.Database.FavouriteEntry;
+import com.importio.nitin.popularmovies.ViewModels.GetFavStateViewModel;
+import com.importio.nitin.popularmovies.ViewModels.GetFavStateViewModelFactory;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -23,14 +27,13 @@ import org.json.JSONObject;
 import java.util.Locale;
 
 public class DetailsActivity extends AppCompatActivity {
-    private static final String TAG = "Nitin";
-
     private Review[] reviews;
     private Video[] videos;
     ListView reviewListView;
     ListView videoListView;
     MovieDetails selectedMovie;
     private AppDatabase mDatabase;
+    boolean isFav;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,19 +75,24 @@ public class DetailsActivity extends AppCompatActivity {
             }
         });
 
-        initFavState();
+        getFavState();
 
         new getMovieReviewsTask().execute(selectedMovie.getId());
         new getMovieTrailerTask().execute(selectedMovie.getId());
     }
 
-    public void initFavState() {
-        AppExecutors.getInstance().getDiskIO().execute(new Runnable() {
+    public void getFavState() {
+        GetFavStateViewModelFactory factory = new GetFavStateViewModelFactory(mDatabase, selectedMovie.getId());
+        GetFavStateViewModel viewModel = ViewModelProviders.of(this, factory).get(GetFavStateViewModel.class);
+        viewModel.getMovie().observe(this, new Observer<FavouriteEntry>() {
             @Override
-            public void run() {
-                FavouriteEntry fav = mDatabase.FavDao().getFavById(selectedMovie.getId());
-                if (fav != null) {
-                    ImageButton button = findViewById(R.id.fav_button);
+            public void onChanged(@Nullable FavouriteEntry favouriteEntry) {
+                ImageButton button = findViewById(R.id.fav_button);
+                if (favouriteEntry == null) {
+                    isFav = false;
+                    button.setImageResource(R.drawable.ic_favorite_border);
+                } else {
+                    isFav = true;
                     button.setImageResource(R.drawable.ic_favorite);
                 }
             }
@@ -95,29 +103,12 @@ public class DetailsActivity extends AppCompatActivity {
         AppExecutors.getInstance().getDiskIO().execute(new Runnable() {
             @Override
             public void run() {
-                FavouriteEntry fav = mDatabase.FavDao().getFavById(selectedMovie.getId());
-                if (fav == null) {
+                if (!isFav) {
+                    isFav = true;
                     mDatabase.FavDao().insertFavMovie(new FavouriteEntry(selectedMovie.getId(), true));
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            ImageButton button = findViewById(R.id.fav_button);
-                            button.setImageResource(R.drawable.ic_favorite);
-                            Toast.makeText(DetailsActivity.this, "Added to favourite", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-
                 } else {
+                    isFav = false;
                     mDatabase.FavDao().deleteFavById(selectedMovie.getId());
-
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            ImageButton button = findViewById(R.id.fav_button);
-                            button.setImageResource(R.drawable.ic_favorite_border);
-                            Toast.makeText(DetailsActivity.this, "Removed from favourite", Toast.LENGTH_SHORT).show();
-                        }
-                    });
                 }
             }
         });

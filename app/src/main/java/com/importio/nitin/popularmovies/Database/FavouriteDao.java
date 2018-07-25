@@ -24,5 +24,5 @@ public interface FavouriteDao {
     void deleteFavById(long id);
 
     @Query("select * from favourite where movieId=:id")
-    FavouriteEntry getFavById(long id);
+    LiveData<FavouriteEntry> getFavById(long id);
 }
