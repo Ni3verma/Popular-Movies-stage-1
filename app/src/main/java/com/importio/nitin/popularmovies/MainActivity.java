@@ -1,8 +1,8 @@
 package com.importio.nitin.popularmovies;
 
 import android.app.Dialog;
-import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.AsyncTask;
@@ -20,8 +20,8 @@ import android.view.MenuItem;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.importio.nitin.popularmovies.Database.AppDatabase;
 import com.importio.nitin.popularmovies.Database.FavouriteEntry;
+import com.importio.nitin.popularmovies.ViewModels.MainViewModel;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -168,12 +168,12 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         //popular movies are not shown by loader
         getSupportLoaderManager().destroyLoader(LOADER_ID);
 
-        AppDatabase mDatabase = AppDatabase.getsInstance(MainActivity.this);
-        LiveData<List<FavouriteEntry>> favMovies = mDatabase.FavDao().getAllFavMovies();
-        favMovies.observe(this, new Observer<List<FavouriteEntry>>() {
+        MainViewModel viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
+        viewModel.getFavMovies().observe(this, new Observer<List<FavouriteEntry>>() {
             @Override
             public void onChanged(@Nullable List<FavouriteEntry> favouriteEntries) {
                 movieList.clear();
+                Log.d("Nitin", "updating from live data");
                 for (FavouriteEntry fav : favouriteEntries) {
                     long id = fav.getMovieId();
                     new getFavMovieTask().execute(id);
