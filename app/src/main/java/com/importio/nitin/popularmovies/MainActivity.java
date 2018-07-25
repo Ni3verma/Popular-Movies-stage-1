@@ -1,6 +1,8 @@
 package com.importio.nitin.popularmovies;
 
 import android.app.Dialog;
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Observer;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.AsyncTask;
@@ -63,7 +65,12 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         Bundle queryBundle = new Bundle();
         queryBundle.putInt("sortBy", SORT_BY_CODE);
-        getSupportLoaderManager().initLoader(LOADER_ID, queryBundle, this);
+
+        //check in case of rotation
+        if (SORT_BY_CODE != 2)
+            getSupportLoaderManager().initLoader(LOADER_ID, queryBundle, this);
+        else
+            displayFavMovies();
     }
 
     @NonNull
@@ -161,12 +168,13 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         //popular movies are not shown by loader
         getSupportLoaderManager().destroyLoader(LOADER_ID);
 
-        AppExecutors.getInstance().getDiskIO().execute(new Runnable() {
+        AppDatabase mDatabase = AppDatabase.getsInstance(MainActivity.this);
+        LiveData<List<FavouriteEntry>> favMovies = mDatabase.FavDao().getAllFavMovies();
+        favMovies.observe(this, new Observer<List<FavouriteEntry>>() {
             @Override
-            public void run() {
-                AppDatabase mDatabase = AppDatabase.getsInstance(MainActivity.this);
-                List<FavouriteEntry> favMovies = mDatabase.FavDao().getAllFavMovies();
-                for (FavouriteEntry fav : favMovies) {
+            public void onChanged(@Nullable List<FavouriteEntry> favouriteEntries) {
+                movieList.clear();
+                for (FavouriteEntry fav : favouriteEntries) {
                     long id = fav.getMovieId();
                     new getFavMovieTask().execute(id);
                 }
