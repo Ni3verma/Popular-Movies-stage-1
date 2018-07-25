@@ -6,4 +6,8 @@
     <string name="poster_image_view_cd">movie poster</string>
     <string name="star_iv_cd">star icon for rating</string>
     <string name="release_date_movie_label">Release Date:</string>
+    <string name="cd_video_image">video image</string>
+    <string name="cd_fav_button">favourite state toggle button</string>
+    <string name="videos">Videos</string>
+    <string name="reviews">Reviews</string>
 </resources>

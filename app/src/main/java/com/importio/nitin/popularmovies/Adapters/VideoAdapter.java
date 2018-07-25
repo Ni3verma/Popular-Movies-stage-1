@@ -1,4 +1,4 @@
-package com.importio.nitin.popularmovies;
+package com.importio.nitin.popularmovies.Adapters;
 
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -11,6 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+
+import com.importio.nitin.popularmovies.ModalClasses.Video;
+import com.importio.nitin.popularmovies.R;
 
 public class VideoAdapter extends ArrayAdapter<Video> {
     private Context context;

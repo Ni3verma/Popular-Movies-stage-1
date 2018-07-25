@@ -14,8 +14,13 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.importio.nitin.popularmovies.Adapters.ReviewAdapter;
+import com.importio.nitin.popularmovies.Adapters.VideoAdapter;
 import com.importio.nitin.popularmovies.Database.AppDatabase;
 import com.importio.nitin.popularmovies.Database.FavouriteEntry;
+import com.importio.nitin.popularmovies.ModalClasses.MovieDetails;
+import com.importio.nitin.popularmovies.ModalClasses.Review;
+import com.importio.nitin.popularmovies.ModalClasses.Video;
 import com.importio.nitin.popularmovies.ViewModels.GetFavStateViewModel;
 import com.importio.nitin.popularmovies.ViewModels.GetFavStateViewModelFactory;
 import com.squareup.picasso.Picasso;

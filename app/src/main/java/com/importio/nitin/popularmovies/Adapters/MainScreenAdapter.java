@@ -1,4 +1,4 @@
-package com.importio.nitin.popularmovies;
+package com.importio.nitin.popularmovies.Adapters;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -7,6 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.importio.nitin.popularmovies.ModalClasses.MovieDetails;
+import com.importio.nitin.popularmovies.R;
+import com.importio.nitin.popularmovies.RecyclerViewClickListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -16,11 +19,10 @@ public class MainScreenAdapter extends RecyclerView.Adapter<MainScreenAdapter.My
     private ArrayList<MovieDetails> movieList;
     private RecyclerViewClickListener mListener;
 
-    MainScreenAdapter(ArrayList<MovieDetails> list, RecyclerViewClickListener listener) {
+    public MainScreenAdapter(ArrayList<MovieDetails> list, RecyclerViewClickListener listener) {
         this.movieList = list;
         this.mListener = listener;
     }
-
 
     @NonNull
     @Override

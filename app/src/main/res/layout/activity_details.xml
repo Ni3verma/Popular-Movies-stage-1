@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <android.support.constraint.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
@@ -19,12 +18,12 @@
             android:layout_height="140dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:contentDescription="@string/poster_image_view_cd"
             android:scaleType="fitXY"
             android:src="@drawable/ic_launcher_background"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:contentDescription="@string/poster_image_view_cd" />
-        <!--TODO:add heart icon instead of star-->
+            app:layout_constraintTop_toTopOf="parent" />
+
         <ImageButton
             android:id="@+id/fav_button"
             android:layout_width="wrap_content"
@@ -32,10 +31,11 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:background="@android:color/transparent"
+            android:contentDescription="@string/cd_fav_button"
             android:onClick="favClicked"
+            android:src="@drawable/ic_favorite_border"
             app:layout_constraintEnd_toEndOf="@+id/poster_movie"
             app:layout_constraintStart_toStartOf="@+id/poster_movie"
-            android:src="@drawable/ic_favorite_border"
             app:layout_constraintTop_toBottomOf="@+id/poster_movie" />
 
         <TextView
@@ -44,10 +44,10 @@
             android:layout_height="wrap_content"
             android:textColor="@android:color/black"
             android:textSize="25sp"
-            tools:text="Avengers Infinity Wars"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/poster_movie"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Avengers Infinity Wars" />
 
         <TextView
             android:id="@+id/rating_movie"
@@ -56,22 +56,22 @@
             android:layout_marginStart="8dp"
             android:textColor="@color/colorPrimary"
             android:textSize="20sp"
-            tools:text="9.8"
             app:layout_constraintBottom_toBottomOf="@+id/star_image_rating"
             app:layout_constraintEnd_toStartOf="@+id/star_image_rating"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toEndOf="@+id/poster_movie"
             app:layout_constraintStart_toStartOf="@+id/name_movie"
-            app:layout_constraintTop_toTopOf="@+id/star_image_rating" />
+            app:layout_constraintTop_toTopOf="@+id/star_image_rating"
+            tools:text="9.8" />
 
         <TextView
             android:id="@+id/release_date_movie_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="@string/release_date_movie_label"
             android:layout_marginTop="16dp"
+            android:text="@string/release_date_movie_label"
             app:layout_constraintStart_toEndOf="@+id/poster_movie"
             app:layout_constraintTop_toBottomOf="@+id/rating_movie" />
 
@@ -81,22 +81,22 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:textColor="@android:color/black"
-            tools:text="28/03/2018"
             android:textSize="20sp"
             app:layout_constraintStart_toEndOf="@+id/poster_movie"
-            app:layout_constraintTop_toBottomOf="@+id/release_date_movie_label" />
+            app:layout_constraintTop_toBottomOf="@+id/release_date_movie_label"
+            tools:text="28/03/2018" />
 
         <ImageView
             android:id="@+id/star_image_rating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:contentDescription="@string/star_iv_cd"
             app:layout_constraintEnd_toEndOf="@+id/name_movie"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/rating_movie"
             app:layout_constraintTop_toBottomOf="@+id/name_movie"
-            app:srcCompat="@android:drawable/star_big_on"
-            android:contentDescription="@string/star_iv_cd" />
+            app:srcCompat="@android:drawable/star_big_on" />
 
         <android.support.v7.widget.CardView
             android:id="@+id/synopsis_movie_card"
@@ -127,7 +127,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="Videos"
+            android:text="@string/videos"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/synopsis_movie_card" />
 
@@ -145,7 +145,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="Reviews"
+            android:text="@string/reviews"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/video_lv" />
 

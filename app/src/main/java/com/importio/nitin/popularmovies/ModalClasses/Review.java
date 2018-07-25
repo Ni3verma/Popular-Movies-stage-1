@@ -1,4 +1,4 @@
-package com.importio.nitin.popularmovies;
+package com.importio.nitin.popularmovies.ModalClasses;
 
 public class Review {
     private String author;

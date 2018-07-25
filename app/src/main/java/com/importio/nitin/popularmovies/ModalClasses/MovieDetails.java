@@ -1,19 +1,19 @@
-package com.importio.nitin.popularmovies;
+package com.importio.nitin.popularmovies.ModalClasses;
 
 public class MovieDetails {
     private long id;
-    String movieTitle;
-    String posterPath;
-    String releaseDate;
-    String synopsis;
+    public String movieTitle;
+    public String posterPath;
+    public String releaseDate;
+    public String synopsis;
 
     public long getId() {
         return id;
     }
 
-    double voteAverage;
+    public double voteAverage;
 
-    MovieDetails(long id, String title, String imagePath, String date, String synp, double voteAvg) {
+    public MovieDetails(long id, String title, String imagePath, String date, String synp, double voteAvg) {
         this.movieTitle = title;
         this.posterPath = makeProperImagePath(imagePath);
         this.releaseDate = date;

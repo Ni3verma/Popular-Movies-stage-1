@@ -20,7 +20,9 @@ import android.view.MenuItem;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.importio.nitin.popularmovies.Adapters.MainScreenAdapter;
 import com.importio.nitin.popularmovies.Database.FavouriteEntry;
+import com.importio.nitin.popularmovies.ModalClasses.MovieDetails;
 import com.importio.nitin.popularmovies.ViewModels.MainViewModel;
 
 import org.json.JSONArray;

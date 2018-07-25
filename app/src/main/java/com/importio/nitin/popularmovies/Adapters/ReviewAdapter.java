@@ -1,4 +1,4 @@
-package com.importio.nitin.popularmovies;
+package com.importio.nitin.popularmovies.Adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -8,6 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+
+import com.importio.nitin.popularmovies.ModalClasses.Review;
+import com.importio.nitin.popularmovies.R;
 
 public class ReviewAdapter extends ArrayAdapter<Review> {
     private Review reviews[];
