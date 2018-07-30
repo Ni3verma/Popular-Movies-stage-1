@@ -194,6 +194,10 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
+            if (s == null) {
+                Toast.makeText(MainActivity.this, "Please check internet connection", Toast.LENGTH_SHORT).show();
+                return;
+            }
             try {
                 JSONObject obj = new JSONObject(s);
                 movieList.add(getMovie(obj));

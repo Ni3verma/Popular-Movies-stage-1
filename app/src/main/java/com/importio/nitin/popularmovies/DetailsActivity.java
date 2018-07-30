@@ -13,6 +13,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.importio.nitin.popularmovies.Adapters.ReviewAdapter;
 import com.importio.nitin.popularmovies.Adapters.VideoAdapter;
@@ -129,6 +130,10 @@ public class DetailsActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String data) {
             super.onPostExecute(data);
+            if (data == null) {
+                Toast.makeText(DetailsActivity.this, "Please check internet connection", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
             try {
                 JSONObject obj = new JSONObject(data);
@@ -161,7 +166,10 @@ public class DetailsActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String data) {
             super.onPostExecute(data);
-
+            if (data == null) {
+                Toast.makeText(DetailsActivity.this, "Please check internet connection", Toast.LENGTH_SHORT).show();
+                return;
+            }
             try {
                 JSONObject obj = new JSONObject(data);
                 JSONArray results = obj.getJSONArray("results");

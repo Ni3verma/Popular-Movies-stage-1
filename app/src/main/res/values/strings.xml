@@ -10,4 +10,5 @@
     <string name="cd_fav_button">favourite state toggle button</string>
     <string name="videos">Videos</string>
     <string name="reviews">Reviews</string>
+    <string name="favourite">Favourite</string>
 </resources>

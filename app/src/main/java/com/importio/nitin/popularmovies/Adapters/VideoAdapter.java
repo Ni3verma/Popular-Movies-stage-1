@@ -47,7 +47,9 @@ public class VideoAdapter extends ArrayAdapter<Video> {
                 Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:" + key));
                 Intent webIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/watch?v=" + key));
                 try {
-                    context.startActivity(appIntent);
+                    if (appIntent.resolveActivity(context.getPackageManager()) != null) {
+                        context.startActivity(appIntent);
+                    }
                 } catch (ActivityNotFoundException e) {
                     context.startActivity(webIntent);
                 }
